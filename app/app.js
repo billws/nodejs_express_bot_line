@@ -11,7 +11,6 @@ bot.on('message', function(event) {
     console.log(event); 
     if (event.message.type == 'text') {
       var msg = event.message.text;
-      var userId = event.source.userId;
       event.reply(msg).then(function(data) {
         // success 
         console.log(msg);
@@ -20,10 +19,13 @@ bot.on('message', function(event) {
         console.log('error');
       });
       setTimeout(function(){
-        var sendMsg = "Test...";
-        bot.push(userId, sendMsg);
-        console.log('userID: ' + userId);
-        console.log('send: ' + sendMsg);
+        var userIds = [];
+        var sendMsgs = [];
+        userIds.push(event.source.userId);
+        sendMsgs.push("Post back test!");
+        console.log('userID: ' + userIds);
+        console.log('send: ' + sendMsgs);
+        bot.push(userIds, sendMsgs);
       }, 1000);
     }
 });
