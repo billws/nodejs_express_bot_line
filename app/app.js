@@ -1,11 +1,12 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
+const { botRules } = require('./services/bot_rules');
 
   
 // create LINE SDK config from env variables
 const config = {
-    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-    channelSecret: process.env.CHANNEL_SECRET,
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "0",
+    channelSecret: process.env.CHANNEL_SECRET || "0",
   };
   
   // create LINE SDK client
@@ -33,12 +34,14 @@ const config = {
       // ignore non-text-message event
       return Promise.resolve(null);
     }
-  
-    // create a echoing text message
-    const echo = { type: 'text', text: event.message.text };
-  
-    // use reply API
-    return client.replyMessage(event.replyToken, echo);
+    
+    let condition = botRules.GetRule(event.message.text);
+    if(condition !== "") {
+      return botRules[condition](client, event);
+    } else {
+      return Promise.resolve(null);
+    }
+    
   }
   
   // listen on port
