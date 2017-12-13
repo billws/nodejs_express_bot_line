@@ -24,7 +24,7 @@ const dbServices = {
         return client.query('SELECT * FROM drawplayers WHERE lineid = $1 AND year = $2 AND activeno = $3', queryParams)
             .then((result) => {
                 if(result.rows.length == 0){
-                    client.query('INSERT INTO drawplayers(lineid, name, year, activeno)', insertParams)
+                    client.query('INSERT INTO drawplayers(lineid, name, year, activeno) values($1, $2, $3, $4)', insertParams)
                         .then((result) => {
                             console.log(JSON.stringify(result));
                             client.end();
