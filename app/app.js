@@ -15,16 +15,16 @@ bot.on('message', function(event) {
       event.reply(msg).then(function(data) {
         // success 
         console.log(msg);
-        setTimeout(function(){
-            var sendMsg = "Test...";
-            bot.push(userId, sendMsg);
-            console.log('userID: ' + userId);
-            console.log('send: ' + sendMsg);
-        }, 10000);
       }).catch(function(error) {
         // error 
         console.log('error');
       });
+      setTimeout(function(){
+        var sendMsg = "Test...";
+        bot.push(userId, sendMsg);
+        console.log('userID: ' + userId);
+        console.log('send: ' + sendMsg);
+        }, 10000);
     }
 });
 
