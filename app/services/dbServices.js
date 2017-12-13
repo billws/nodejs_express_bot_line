@@ -8,6 +8,7 @@ const client = new Client({
 
 const dbServices = {
     init: function(){
+        console.log(process.env.DATABASE_URL);
         client.connect();
 
         client.query('CREATE TABLE players (id UUID, name VARCHAR(30), lineid VARCHAR(100), sendto VARCHAR(30));', (err, res) => {
