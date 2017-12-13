@@ -6,29 +6,45 @@ const client = new Client({
   ssl: true,
 });
 
-const allName = ['小左', '書包', '卡卡', '旅人', '阿賓', '松鼠'];
-
 const dbServices = {
-    init: function(){
-        console.log(process.env.DATABASE_URL);
+    InitDB: function(){
         client.connect();
 
-        client.query('CREATE TABLE players (id UUID, name VARCHAR(30), lineid VARCHAR(100), sendto VARCHAR(30));', (err, res) => {
-            if (err) throw err;
-            console.log(JSON.stringify(res));
-            client.query('INSERT INTO players (name) VALUES($1), ($2), ($3), ($4), ($5), ($6);', allName, (err, res) => {
-                if (err) throw err;
-                console.log(JSON.stringify(res));
-                client.query('SELECT * FROM players;', (err, res) => {
-                    if (err) throw err;
-                    for (let row of res.rows) {
-                      console.log(JSON.stringify(row));
-                    }
+        return client.query('CREATE TABLE drawplayers (lineid VARCHAR(100) PRIMARY KEY, name VARCHAR(50), sendto VARCHAR(30), year INT, activeno SMALLINT);')
+                .then((result) => {
+                    console.log(JSON.stringify(result));
                     client.end();
-                });
-            });
-        });
+                })
+                .catch(e => console.log(e))
+                .then(() => client.end());
+    },
+    AttendDrawing: function(name, lineID, year, activeNO){
+        client.connect();
+        let queryParams = [lineID, year, activeNO];
+        let insertParams = [lineID, name, year, activeNO];
+        return client.query('SELECT * FROM drawplayers WHERE lineid = $1 AND year = $2 AND activeno = $3', queryParams)
+            .then((result) => {
+                if(result.rows.length == 0){
+                    client.query('INSERT INTO drawplayers(lineid, name, year, activeno)', insertParams)
+                        .then((result) => {
+                            console.log(JSON.stringify(result));
+                            client.end();
+                            return "Done";
+                        })
+                        .catch(e => console.log(e))
+                        .then(() => client.end());
+                }else{
+                    return "Attened";
+                }
+            })
+            .catch(e => console.log(e))
+            .then(() => client.end());
+    },
+
+    Drawing: function(name, lineID, year, groupType){
+        client.connect();
     }
+
 }
 
 

@@ -10,6 +10,9 @@ const botRules = {
             case process.env.NN:
                 rule = "NN";
                 break;
+            case process.env.INIT_DB:
+                rule = "InitDB";
+                break;
             default:
                 break;
         }
@@ -18,8 +21,9 @@ const botRules = {
     SS: function(client, event){
         console.log(event);
 
+        let text = dbServices.AttendDrawing("", event.source.userId, 2017, 0) == "Done" ? "報名完成": "報名失敗";
         // create a echoing text message
-        const echo = { type: 'text', text: event.message.text };
+        const echo = { type: 'text', text: text };
       
         // use reply API
         return client.replyMessage(event.replyToken, echo);
@@ -29,14 +33,12 @@ const botRules = {
 
         // create a echoing text message
         const echo = { type: 'text', text: 'init' };
-        try{
-            dbServices.init();
-        }catch(ex){
-            console.log(ex);
-        }
-        
+                
         // use reply API
         return client.replyMessage(event.replyToken, echo);
+    },
+    InitDB: function(){
+        dbServices.init();
     }
 }
 
