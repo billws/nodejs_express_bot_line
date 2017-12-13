@@ -38,7 +38,7 @@ const botRules = {
         return client.replyMessage(event.replyToken, echo);
     },
     InitDB: function(){
-        dbServices.init();
+        dbServices.InitDB();
     }
 }
 
