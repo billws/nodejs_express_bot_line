@@ -7,10 +7,26 @@ var bot = linebot({
   channelAccessToken: process.env.ChannelAccessToken || ""
 });
 
-
 bot.on('message', function(event) {
     console.log(event); 
+    if (event.message.type == 'text') {
+      var msg = event.message.text;
+      var userId = event.source.userId;
+      event.reply(msg).then(function(data) {
+        // success 
+        console.log(msg);
+        setTimeout(function(){
+            var sendMsg = "Test...";
+            bot.push(userId, sendMsg);
+            console.log('send: '+sendMsg);
+        }, 15000);
+      }).catch(function(error) {
+        // error 
+        console.log('error');
+      });
+    }
 });
+
   
 const app = express();
 const linebotParser = bot.parser();
