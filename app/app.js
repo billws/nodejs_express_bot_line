@@ -1,6 +1,6 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
-const { botRules } = require('./services/bot_rules');
+const botRules = require('./services/bot_rules');
 
   
 // create LINE SDK config from env variables
@@ -43,7 +43,7 @@ const config = {
     }
     
   }
-  
+
   // listen on port
   const port = process.env.PORT || 3000;
   app.listen(port, () => {

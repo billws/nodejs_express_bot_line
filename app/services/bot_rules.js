@@ -1,7 +1,7 @@
 const botRules = {
     GetRule: function(text){
         let rule = "";
-        switch(test){
+        switch(text){
             case process.env.SS:
                 rule = "SS";
                 break;
