@@ -1,0 +1,24 @@
+{
+  "name": "nodejs_express_bot_line",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/billws/nodejs_express_bot_line.git"
+  },
+  "author": "Bill Wu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/billws/nodejs_express_bot_line/issues"
+  },
+  "homepage": "https://github.com/billws/nodejs_express_bot_line#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "linebot": "^1.3.0"
+  }
+}
