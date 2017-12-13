@@ -1,3 +1,5 @@
+const dbServices = require('./dbServices');
+
 const botRules = {
     GetRule: function(text){
         let rule = "";
@@ -19,6 +21,15 @@ const botRules = {
         // create a echoing text message
         const echo = { type: 'text', text: event.message.text };
       
+        // use reply API
+        return client.replyMessage(event.replyToken, echo);
+    },
+    NN: function(client, event){
+        console.log(event);
+
+        // create a echoing text message
+        const echo = { type: 'text', text: 'init' };
+        dbServices.init();
         // use reply API
         return client.replyMessage(event.replyToken, echo);
     }

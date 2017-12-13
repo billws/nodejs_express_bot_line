@@ -19,6 +19,7 @@
   "homepage": "https://github.com/billws/nodejs_express_bot_line#readme",
   "dependencies": {
     "@line/bot-sdk": "^5.2.0",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "pg": "7.4.0"
   }
 }
