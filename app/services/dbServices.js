@@ -27,10 +27,14 @@ const dbServices = {
                     client.query('INSERT INTO drawplayers(lineid, name, year, activeno) values($1, $2, $3, $4)', insertParams)
                         .then((result) => {
                             console.log(JSON.stringify(result));
-                            client.end();
+                            client.query('SELECT * FROM drawplayers WHERE lineid = $1 AND year = $2 AND activeno = $3', queryParams)
+                                .then((result) => {
+                                })
+                                .catch(e => console.log(e));
                             return "Done";
                         })
-                        .catch(e => console.log(e));
+                        .catch(e => console.log(e))
+                        .then(() => client.end());
                 }else{
                     return "Attened";
                 }
