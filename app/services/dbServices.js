@@ -13,7 +13,6 @@ const dbServices = {
         return client.query('CREATE TABLE drawplayers (lineid VARCHAR(100) PRIMARY KEY, name VARCHAR(50), sendto VARCHAR(30), year INT, activeno SMALLINT);')
                 .then((result) => {
                     console.log(JSON.stringify(result));
-                    client.end();
                 })
                 .catch(e => console.log(e))
                 .then(() => client.end());
@@ -28,7 +27,6 @@ const dbServices = {
                     client.query('INSERT INTO drawplayers(lineid, name, year, activeno)', insertParams)
                         .then((result) => {
                             console.log(JSON.stringify(result));
-                            client.end();
                             return "Done";
                         })
                         .catch(e => console.log(e))
