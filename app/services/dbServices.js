@@ -10,12 +10,12 @@ const dbServices = {
     InitDB: function(){
         client.connect();
 
-        return client.query('CREATE TABLE drawplayers (lineid VARCHAR(100) PRIMARY KEY, name VARCHAR(50), sendto VARCHAR(30), year INT, activeno SMALLINT);')
+        client.query('CREATE TABLE drawplayers (lineid VARCHAR(100) PRIMARY KEY, name VARCHAR(50), sendto VARCHAR(30), year INT, activeno SMALLINT);') 
                 .then((result) => {
                     console.log(JSON.stringify(result));
+                    client.end();
                 })
-                .catch(e => console.log(e))
-                .then(() => client.end());
+                .catch(e => console.log(e));
     },
     AttendDrawing: function(name, lineID, year, activeNO){
         client.connect();
@@ -27,16 +27,15 @@ const dbServices = {
                     client.query('INSERT INTO drawplayers(lineid, name, year, activeno)', insertParams)
                         .then((result) => {
                             console.log(JSON.stringify(result));
+                            client.end();
                             return "Done";
                         })
-                        .catch(e => console.log(e))
-                        .then(() => client.end());
+                        .catch(e => console.log(e));
                 }else{
                     return "Attened";
                 }
             })
-            .catch(e => console.log(e))
-            .then(() => client.end());
+            .catch(e => console.log(e));
     },
 
     Drawing: function(name, lineID, year, groupType){
