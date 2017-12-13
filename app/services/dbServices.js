@@ -14,20 +14,26 @@ const dbServices = {
         client.query('CREATE TABLE players (id UUID, name VARCHAR(30), lineid VARCHAR(100), sendto VARCHAR(30));', (err, res) => {
             if (err) throw err;
             console.log(JSON.stringify(row));
+            client.end();
         });
+
+        client.connect();
         client.query('INSERT INTO players (name) VALUES("小左"), ("卡卡"), ("書包"), ("瑋誠"), ("香香"), ("旅人");', (err, res) => {
             if (err) throw err;
             console.log(JSON.stringify(row));
+            client.end();
         });
 
+        client.connect();
         client.query('SELECT * FROM players;', (err, res) => {
             if (err) throw err;
             for (let row of res.rows) {
               console.log(JSON.stringify(row));
             }
+            client.end();
           });
 
-        client.end();
+        
     }
 }
 
