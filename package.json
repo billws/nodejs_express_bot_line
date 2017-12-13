@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/billws/nodejs_express_bot_line#readme",
   "dependencies": {
+    "@line/bot-sdk": "^5.2.0",
+    "apiai": "^4.0.3",
     "express": "^4.16.2",
-    "linebot": "^1.3.0"
+    "pg": "7.4.0"
   }
 }

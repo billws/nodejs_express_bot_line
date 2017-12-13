@@ -1,42 +1,53 @@
-var linebot = require('linebot');
-var express = require('express');
+const line = require('@line/bot-sdk');
+const express = require('express');
+const botRules = require('./services/bot_rules');
 
-var bot = linebot({
-  channelId: process.env.ChannelId || "",
-  channelSecret: process.env.ChannelSecret || "",
-  channelAccessToken: process.env.ChannelAccessToken || ""
-});
-
-bot.on('message', function(event) {
-    console.log(event); 
-    if (event.message.type == 'text') {
-      var msg = event.message.text;
-      event.reply(msg).then(function(data) {
-        // success 
-        console.log(msg);
-      }).catch(function(error) {
-        // error 
-        console.log('error');
+  
+// create LINE SDK config from env variables
+const config = {
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || "0",
+    channelSecret: process.env.CHANNEL_SECRET || "0",
+  };
+  
+  // create LINE SDK client
+  const client = new line.Client(config);
+  
+  // create Express app
+  // about Express itself: https://expressjs.com/
+  const app = express();
+  
+  // register a webhook handler with middleware
+  // about the middleware, please refer to doc
+  app.post('/callback', line.middleware(config), (req, res) => {
+    Promise
+      .all(req.body.events.map(handleEvent))
+      .then((result) => res.json(result))
+      .catch((error) => {
+          console.log(error);
       });
-      setTimeout(function(){
-        var userIds = [];
-        var sendMsgs = [];
-        userIds.push(event.source.userId);
-        sendMsgs.push("Post back test!");
-        console.log('userID: ' + userIds);
-        console.log('send: ' + sendMsgs);
-        bot.push(userIds, sendMsgs);
-      }, 1000);
-    }
-});
+  });
+  
+  // event handler
+  function handleEvent(event) {
+    let whoIS = JSON.stringify(event.source) + JSON.stringify(event.message);
+    
+    console.log(whoIS);
 
-  
-const app = express();
-const linebotParser = bot.parser();
-app.post('/', linebotParser);
-  
-//https://stackoverflow.com/questions/18008620/node-js-express-js-app-only-works-on-port-3000
-var server = app.listen(process.env.PORT || 8080, function() {
-  var port = server.address().port;
-  console.log("App now running on port", port);
-});
+    if (event.type !== 'message' || event.message.type !== 'text') {
+      // ignore non-text-message event
+      return Promise.resolve(null);
+    }
+    let condition = botRules.GetRule(event.message.text);
+    if(condition !== "") {
+      return botRules[condition](client, event);
+    } else {
+      return Promise.resolve(null);
+    }
+    
+  }
+
+  // listen on port
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`listening on ${port}`);
+  });
