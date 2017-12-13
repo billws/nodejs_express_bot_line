@@ -24,7 +24,7 @@ bot.on('message', function(event) {
         bot.push(userId, sendMsg);
         console.log('userID: ' + userId);
         console.log('send: ' + sendMsg);
-        }, 10000);
+      }, 1000);
     }
 });
 
