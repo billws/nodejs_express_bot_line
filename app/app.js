@@ -18,8 +18,9 @@ bot.on('message', function(event) {
         setTimeout(function(){
             var sendMsg = "Test...";
             bot.push(userId, sendMsg);
-            console.log('send: '+sendMsg);
-        }, 15000);
+            console.log('userID: ' + userId);
+            console.log('send: ' + sendMsg);
+        }, 10000);
       }).catch(function(error) {
         // error 
         console.log('error');
