@@ -28,7 +28,7 @@ const botRules = {
     SS: function(client, event){
         let firstIndex = event.message.text.indexOf("我是");
         let lastIndex = event.message.text.indexOf(process.env.SS);
-        if(firstIndex === 0 && lastIndex > 0){
+        if(firstIndex === 0 && lastIndex > 0 && firstIndex + 2 < lastIndex){
             return dbServices.AttendDrawing(client, event.replyToken, event.message.text.slice(firstIndex + 2, lastIndex), event.source.userId, 2017, 0);
         }else{
             const echo = { type: 'text', text: '格式錯誤啦！' };
