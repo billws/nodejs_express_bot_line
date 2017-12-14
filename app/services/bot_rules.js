@@ -13,7 +13,7 @@ const botRules = {
             case text.endsWith(process.env.NN):
                 rule = "NN";
                 break;
-            case process.env.INIT_DB:
+            case text.endsWith(process.env.INIT_DB):
                 rule = "InitDB";
                 break;
             default:
