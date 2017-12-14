@@ -75,6 +75,7 @@ const dbServices = {
                         //allPlayer += `ID: ${row.lineid}, NAME: ${row.name}\n`;
                         allPlayer += `${row.name}\n`;
                     }
+                    allPlayer += `總共${result.rows.length}人報名！`;
                     const echo = { type: 'text', text: allPlayer };
                     return lineClient.replyMessage(replyToken, echo);
                 } else {
