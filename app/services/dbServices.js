@@ -82,7 +82,7 @@ const dbServices = {
             .then(() => client.end());
     },
 
-    Drawing: function(lineClient, lineEvent, lineID, year, groupType){
+    Drawing: function(lineClient, lineEvent, lineID, year, activeNO){
         let client = this.InitDBClient();
         client.connect();
         let queryParams = [year, activeNO];
