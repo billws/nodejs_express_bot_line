@@ -3,14 +3,14 @@ const dbServices = require('./dbServices');
 const botRules = {
     GetRule: function(text){
         let rule = "";
-        switch(text){
-            case process.env.SS:
+        switch(true){
+            case text.endsWith(process.env.SS):
                 rule = "SS";
                 break;
-            case process.env.CCSS:
+            case text.endsWith(process.env.CCSS):
                 rule = "CCSS";
                 break;
-            case process.env.NN:
+            case text.endsWith(process.env.NN):
                 rule = "NN";
                 break;
             case process.env.INIT_DB:
@@ -22,7 +22,14 @@ const botRules = {
         return rule;
     },
     SS: function(client, event){
-        return dbServices.AttendDrawing(client, event.replyToken, "Test", event.source.userId, 2017, 0);
+        let firstIndex = event.message.text.indexOf("我是");
+        let lastIndex = event.message.text.indexOf(process.env.SS);
+        if(firstIndex === 0 && lastIndex > 0){
+            return dbServices.AttendDrawing(client, event.replyToken, event.message.text.slice(firstIndex, lastIndex + 1), event.source.userId, 2017, 0);
+        }else{
+            const echo = { type: 'text', text: '格式錯誤啦！' };
+            return client.replyMessage(event.replyToken, echo);
+        }
     },
     CCSS: function(client, event){
         return dbServices.CheckDrawingPlayers(client, event.replyToken, "Test", event.source.userId, 2017, 0);

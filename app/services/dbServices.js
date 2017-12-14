@@ -69,7 +69,8 @@ const dbServices = {
                 let allPlayer = "";
                 for (let row of result.rows) {
                     console.log(JSON.stringify(row));
-                    allPlayer += `ID: ${row.lineid}, NAME: ${row.name}\n`;
+                    //allPlayer += `ID: ${row.lineid}, NAME: ${row.name}\n`;
+                    allPlayer += `${row.name}\n`;
                 }
                 const echo = { type: 'text', text: allPlayer };
                 return lineClient.replyMessage(replyToken, echo);
