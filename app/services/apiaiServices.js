@@ -19,10 +19,10 @@ const apiaiServices = {
         request.on('response', function(response) {
 
             if(typeof response.result !== 'undefined' && response.result){
-                const echo = { type: 'text', text: response.result.fulfillment.speech || "阿..." };
+                const echo = { type: 'text', text: response.result.fulfillment.speech || "我很笨還沒學會怎麼回覆你..." };
                 return lineClient.replyMessage(lineEvent.replyToken, echo);
             } else {
-                const echo = { type: 'text', text: '阿阿...' };
+                const echo = { type: 'text', text: '這...' };
                 return lineClient.replyMessage(lineEvent.replyToken, echo);
             }
             
