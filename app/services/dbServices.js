@@ -31,6 +31,7 @@ const dbServices = {
             })
             .then((rowNumber) => {
                 console.log("22222222");
+                console.log(rowNumber);
                 if(rowNumber == 0){
                     client.query('INSERT INTO drawplayers(lineid, name, year, activeno) values($1, $2, $3, $4)', insertParams)
                     .then((result) => {
