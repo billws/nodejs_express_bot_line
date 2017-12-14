@@ -29,8 +29,8 @@ const apiaiServices = {
 
         request.on('error', function(error) {
             //console.log(error);
-            const echo = { type: 'text', text: "啊阿..." };
-            return lineClient.replyMessage(lineEvent.replyToken, echo);
+            this.log('Received empty speech');
+            return Promise.resolve(false);
         });
 
         request.end();
