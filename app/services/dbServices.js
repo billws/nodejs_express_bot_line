@@ -43,12 +43,12 @@ const dbServices = {
                             .catch(e => console.log(e));*/
                         return "Done";
                     })
-                    .catch(e => console.log(e));
+                    .catch(e => console.log(e))
+                    .then(() => client.end());
                 }
             })
-            .catch(e => console.log(e))
-            .then(() => {
-                console.log("ENDDDDDD");
+            .catch(e => {
+                console.log(e);
                 client.end();
             });
     },
