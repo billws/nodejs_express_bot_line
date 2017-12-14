@@ -87,7 +87,7 @@ const dbServices = {
         let client = this.InitDBClient();
         client.connect();
         let queryParams = [year, activeNO];
-        client.query('SELECT * FROM drawplayers WHERE year = $2 AND activeno = $3', queryParams)
+        client.query('SELECT * FROM drawplayers WHERE year = $1 AND activeno = $2', queryParams)
         .then((result) => {
             console.log("222222222222222");
             let datas = {};
