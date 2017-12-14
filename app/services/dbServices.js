@@ -83,16 +83,19 @@ const dbServices = {
     },
 
     Drawing: function(lineClient, lineEvent, lineID, year, activeNO){
+        console.log("111111111111");
         let client = this.InitDBClient();
         client.connect();
         let queryParams = [year, activeNO];
         client.query('SELECT * FROM drawplayers WHERE year = $2 AND activeno = $3', queryParams)
         .then((result) => {
+            console.log("222222222222222");
             let datas = {};
             let own = {};
             let other = [];
             let hasSendTo = false;
-            if(result.rows.length > 0){
+            console.log(result.rows.length);
+            if(result.rows.length > 0) {
                 datas.length = result.rows.length;
                 datas.rows = result.rows;
                 for (let row of datas.rows) {
@@ -108,7 +111,7 @@ const dbServices = {
                 datas.own = own;
                 datas.hasSendTo = hasSendTo;
                 datas.other = other;
-            }else{
+            } else {
                 datas.length = 0;
                 datas.own = own;
                 datas.hasSendTo = hasSendTo;
@@ -116,6 +119,7 @@ const dbServices = {
             return datas;
         })
         .then((datas) => {
+            console.log(datas);
             if(datas.length > 0 && Object.keys(datas.own).length > 0 && !datas.hasSendTo && datas.other.length > 0){
                 let otherNumber = datas.other.length;
                 let randomNumber = Math.floor(Math.random() * (otherNumber - 1) + 1);
