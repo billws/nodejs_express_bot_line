@@ -1,6 +1,9 @@
 const dbServices = require('./dbServices');
 
 class botRules {
+    constructor(config) {
+        
+    }
     GetRule(text){
         let rule = "";
         switch(text){

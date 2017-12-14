@@ -34,10 +34,10 @@ const config = {
       // ignore non-text-message event
       return Promise.resolve(null);
     }
-    
-    let condition = botRules.GetRule(event.message.text);
+    let ruler = new botRules();
+    let condition = ruler.GetRule(event.message.text);
     if(condition !== "") {
-      return botRules[condition](client, event);
+      return ruler[condition](client, event);
     } else {
       return Promise.resolve(null);
     }
