@@ -15,16 +15,15 @@ const dbServices = {
             ssl: true,
         });
     },
-    InitDB: function(){
-        console.log(321);
+    InitDB: function(lineClient, lineevent){
         let client = this.InitDBClient();
         client.connect();
         
         client.query('CREATE TABLE drawplayers (lineid VARCHAR(100) PRIMARY KEY, name VARCHAR(50), sendto VARCHAR(30), year INT, activeno SMALLINT);') 
                 .then((result) => {
                     console.log(JSON.stringify(result));
-                    const echo = { type: 'text', text: JSON.stringify(result) };
-                    return client.replyMessage(event.replyToken, echo);
+                    const echo = { type: 'text', text: "Active Success！" };
+                    return lineClient.replyMessage(lineevent.replyToken, echo);
                 })
                 .catch(e => console.log(e))
                 .then(() => client.end());

@@ -42,8 +42,8 @@ const botRules = {
         // use reply API
         return client.replyMessage(event.replyToken, echo);
     },
-    InitDB: function(){
-        dbServices.InitDB();
+    InitDB: function(client, event){
+        dbServices.InitDB(client, event);
     }
 }
 
