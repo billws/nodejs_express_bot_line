@@ -10,6 +10,9 @@ const botRules = {
             case text.endsWith(process.env.CCSS):
                 rule = "CCSS";
                 break;
+            case text.endsWith(process.env.DDSS):
+                rule = "DDSS";
+                break;
             case text.endsWith(process.env.NN):
                 rule = "NN";
                 break;
@@ -33,6 +36,9 @@ const botRules = {
     },
     CCSS: function(client, event){
         return dbServices.CheckDrawingPlayers(client, event.replyToken, "Test", event.source.userId, 2017, 0);
+    },
+    DDSS: function(client, event){
+        return dbServices.Drawing(client, event, event.source.userId, 2017, 0);
     },
     NN: function(client, event){
 
