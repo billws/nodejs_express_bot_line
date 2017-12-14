@@ -28,8 +28,7 @@ const apiaiServices = {
         });
 
         request.on('error', function(error) {
-            //console.log(error);
-            this.log('Received empty speech');
+            console.log(error);
             return Promise.resolve(false);
         });
 
