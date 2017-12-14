@@ -1,9 +1,7 @@
 
 
-class lineServices {
-    constructor(config) {
-        
-    }
+const lineServices = {
+    
 }
 
-exports.default = lineServices;
+module.exports = lineServices;

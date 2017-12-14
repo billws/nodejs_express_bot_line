@@ -1,10 +1,7 @@
 const dbServices = require('./dbServices');
 
-class botRules {
-    constructor(config) {
-        
-    }
-    GetRule(text){
+const botRules = {
+    GetRule: function(text){
         let rule = "";
         switch(text){
             case process.env.SS:
@@ -20,8 +17,8 @@ class botRules {
                 break;
         }
         return rule;
-    }
-    SS(client, event){
+    },
+    SS: function(client, event){
         console.log(event);
         
         let text = dbServices.AttendDrawing("Test", event.source.userId, 2017, 0);
@@ -32,8 +29,8 @@ class botRules {
       
         // use reply API
         return client.replyMessage(event.replyToken, echo);
-    }
-    NN(client, event){
+    },
+    NN: function(client, event){
         console.log(event);
 
         // create a echoing text message
@@ -41,10 +38,10 @@ class botRules {
                 
         // use reply API
         return client.replyMessage(event.replyToken, echo);
-    }
-    InitDB(){
+    },
+    InitDB: function(){
         dbServices.InitDB();
     }
 }
 
-exports.default = botRules;
+module.exports = botRules;
