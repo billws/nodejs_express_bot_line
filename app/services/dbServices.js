@@ -60,7 +60,7 @@ const dbServices = {
             });
     },
 
-    CheckDrawingPlayers: function(){
+    CheckDrawingPlayers: function(lineClient, replyToken, name, lineID, year, activeNO){
         let client = this.InitDBClient();
         client.connect();
         let queryParams = [year, activeNO];
