@@ -1,10 +1,12 @@
 
 const { Client } = require('pg');
 
+/*
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
+*/
 
 const dbServices = {
     InitDB: function(){
@@ -18,6 +20,10 @@ const dbServices = {
                 .then(() => client.end());
     },
     AttendDrawing: function(lineClient, replyToken, name, lineID, year, activeNO){
+        const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: true,
+        });
         client.connect();
         let queryParams = [lineID, year, activeNO];
         let insertParams = [lineID, name, year, activeNO];
@@ -68,10 +74,18 @@ const dbServices = {
     },
 
     CheckDrawingPlayers: function(){
+        const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: true,
+        });
         client.connect();
     },
 
     Drawing: function(name, lineID, year, groupType){
+        const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: true,
+        });
         client.connect();
     }
 
