@@ -1,6 +1,11 @@
 const dbServices = require('./dbServices');
 const apiaiServices = require('./apiaiServices');
 
+const envVar = {
+    SSYear: process.env.SSYEAR,
+    SSActiveNO: process.env.SSACTIVENO
+};
+
 const botRules = {
     GetRule: function(text){
         let rule = "";
@@ -37,10 +42,10 @@ const botRules = {
         }
     },
     CCSS: function(client, event){
-        return dbServices.CheckDrawingPlayers(client, event.replyToken, "Test", event.source.userId, 2017, 0);
+        return dbServices.CheckDrawingPlayers(client, event.replyToken, "Test", event.source.userId, envVar.SSYear, envVar.SSActiveNO);
     },
     DDSS: function(client, event){
-        return dbServices.Drawing(client, event, event.source.userId, 2017, 0);
+        return dbServices.Drawing(client, event, event.source.userId, envVar.SSYear, envVar.SSActiveNO);
     },
     NN: function(client, event){
 
