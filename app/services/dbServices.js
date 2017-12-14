@@ -68,14 +68,20 @@ const dbServices = {
         let queryParams = [year, activeNO];
         client.query('SELECT * FROM drawplayers WHERE year = $1 AND activeno = $2', queryParams)
             .then((result) => {
-                let allPlayer = "";
-                for (let row of result.rows) {
-                    console.log(JSON.stringify(row));
-                    //allPlayer += `ID: ${row.lineid}, NAME: ${row.name}\n`;
-                    allPlayer += `${row.name}\n`;
+                if(result.rows.length > 0){
+                    let allPlayer = "";
+                    for (let row of result.rows) {
+                        console.log(JSON.stringify(row));
+                        //allPlayer += `ID: ${row.lineid}, NAME: ${row.name}\n`;
+                        allPlayer += `${row.name}\n`;
+                    }
+                    const echo = { type: 'text', text: allPlayer };
+                    return lineClient.replyMessage(replyToken, echo);
+                } else {
+                    const echo = { type: 'text', text: "還沒有人報名耶！" };
+                    return lineClient.replyMessage(replyToken, echo);
                 }
-                const echo = { type: 'text', text: allPlayer };
-                return lineClient.replyMessage(replyToken, echo);
+                
             })
             .catch(e => console.log(e))
             .then(() => client.end());
@@ -91,14 +97,18 @@ const dbServices = {
             let own = {};
             let other = [];
             let hasSendTo = false;
+            let alreadySend = [];
             if(result.rows.length > 0) {
                 datas.length = result.rows.length;
                 datas.rows = result.rows;
                 for (let row of datas.rows) {
                     if(row.lineid === lineID){
                         own = row;
-                    }else if(!row.sendto){
+                    } else {
                         other.push(row);
+                    }
+                    if (row.sendto) {
+                        alreadySend.push(row.sendto);
                     }
                 }
                 if(own.sendto){
@@ -106,7 +116,19 @@ const dbServices = {
                 }
                 datas.own = own;
                 datas.hasSendTo = hasSendTo;
-                datas.other = other;
+                datas.other = [];
+                for (let row of other) {
+                    let already = false;
+                    for (let who of alreadySend) {
+                        if(row.name === who){
+                            already = true;
+                        }
+                    }
+                    if (!already) {
+                        datas.other.push(row);
+                    }
+                }
+                datas.alreadySend = alreadySend;
             } else {
                 datas.length = 0;
                 datas.own = own;
@@ -142,7 +164,6 @@ const dbServices = {
             client.end();
         });
     }
-
 }
 
 
