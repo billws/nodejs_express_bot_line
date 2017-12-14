@@ -126,7 +126,7 @@ const dbServices = {
                 client.query('UPDATE drawplayers SET sendto=($1) WHERE lineid=($2)', insertParams)
                 .then((result) => {
                     const echo = { type: 'text', text: `您送禮物的對象是${sendTo}` };
-                    return lineClient.replyMessage(replyToken, echo);
+                    return lineClient.replyMessage(lineEvent.replyToken, echo);
                 })
                 .catch(e => console.log(e))
                 .then(() => client.end());
