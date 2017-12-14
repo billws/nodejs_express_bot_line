@@ -48,7 +48,7 @@ const dbServices = {
                         const echo = { type: 'text', text: "報名完成" };
                           
                         // use reply API
-                        return client.replyMessage(replyToken, echo);
+                        return lineClient.replyMessage(replyToken, echo);
                     })
                     .catch(e => console.log(e))
                     .then(() => client.end());

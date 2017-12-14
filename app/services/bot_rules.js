@@ -20,7 +20,7 @@ const botRules = {
     },
     SS: function(client, event){
         console.log(event);
-        return dbServices.AttendDrawing(client, replyToken, "Test", event.source.userId, 2017, 0);
+        return dbServices.AttendDrawing(client, event.replyToken, "Test", event.source.userId, 2017, 0);
     },
     NN: function(client, event){
         console.log(event);
