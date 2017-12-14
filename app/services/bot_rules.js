@@ -57,7 +57,7 @@ const botRules = {
         
         // use reply API
         /*return client.replyMessage(event.replyToken, echo);*/
-        return apiaiServices.easyRequest(client, event);
+        apiaiServices.easyRequest(client, event);
     },
     InitDB: function(client, event){
         dbServices.InitDB(client, event);
