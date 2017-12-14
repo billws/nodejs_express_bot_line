@@ -6,4 +6,4 @@ class lineServices {
     }
 }
 
-module.exports = lineServices;
+exports.default = lineServices;

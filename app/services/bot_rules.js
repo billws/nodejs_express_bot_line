@@ -44,4 +44,4 @@ class botRules {
     }
 }
 
-module.exports = botRules;
+exports.default = botRules;
