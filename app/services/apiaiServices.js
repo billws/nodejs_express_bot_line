@@ -19,11 +19,16 @@ const apiaiServices = {
         request.on('response', function(response) {
 
             if(typeof response.result !== 'undefined' && response.result){
-                const echo = [{ type: 'text', text: response.result.fulfillment.speech || "我很笨還沒學會怎麼回覆你..." }, 
-                {type: 'sticker', packageId: 3, stickerId: 188}];
-                return lineClient.replyMessage(lineEvent.replyToken, echo);
+                if (response.result.fulfillment.speech) {
+                    const echo = { type: 'text', text: response.result.fulfillment.speech };
+                    return lineClient.replyMessage(lineEvent.replyToken, echo);
+                } else {
+                    const echo = [{ type: 'text', text: "我很笨還沒學會怎麼回覆你..." }, 
+                    {type: 'sticker', packageId: 3, stickerId: 188}];
+                    return lineClient.replyMessage(lineEvent.replyToken, echo);
+                }
             } else {
-                const echo = [{ type: 'text', text: response.result.fulfillment.speech || "這..." }, 
+                const echo = [{ type: 'text', text: "這..." }, 
                 {type: 'sticker', packageId: 3, stickerId: 187}];
                 return lineClient.replyMessage(lineEvent.replyToken, echo);
             }
