@@ -19,7 +19,7 @@ const apiaiServices = {
         request.on('response', function(response) {
             console.log(response);
             const echo = { type: 'text', text: response };
-            return lineClient.replyMessage(lineEvent.replyToken, echo);
+            lineClient.replyMessage(lineEvent.replyToken, echo);
         });
 
         request.on('error', function(error) {
