@@ -121,8 +121,7 @@ const dbServices = {
             if(datas.length > 0 && Object.keys(datas.own).length > 0 && !datas.hasSendTo && datas.other.length > 0){
                 let otherNumber = datas.other.length;
                 let randomNumber = Math.floor(Math.random() * (otherNumber - 1) + 1);
-                console.log(randomNumber);
-                let sendTo = datas.other[randomNumber].name;
+                let sendTo = datas.other[randomNumber - 1].name;
                 let insertParams = [sendTo, lineID];
                 client.query('UPDATE drawplayers SET sendto=($1) WHERE lineid=($2)', insertParams)
                 .then((result) => {
