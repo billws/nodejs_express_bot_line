@@ -7,6 +7,9 @@ const botRules = {
             case process.env.SS:
                 rule = "SS";
                 break;
+            case process.env.CCSS:
+                rule = "CCSS";
+                break;
             case process.env.NN:
                 rule = "NN";
                 break;
@@ -19,11 +22,12 @@ const botRules = {
         return rule;
     },
     SS: function(client, event){
-        console.log(event);
         return dbServices.AttendDrawing(client, event.replyToken, "Test", event.source.userId, 2017, 0);
     },
+    CCSS: function(client, event){
+        return dbServices.CheckDrawingPlayers(client, event.replyToken, "Test", event.source.userId, 2017, 0);
+    },
     NN: function(client, event){
-        console.log(event);
 
         // create a echoing text message
         const echo = { type: 'text', text: 'init' };
