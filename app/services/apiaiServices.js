@@ -17,7 +17,7 @@ const apiaiServices = {
         let request = app.textRequest(lineEvent.message.text, options);
 
         request.on('response', function(response) {
-            //console.log(response);
+            console.log(response);
             if(typeof response.result !== 'undefined' && response.result){
                 const echo = { type: 'text', text: response.result.fulfillment.speech };
                 return lineClient.replyMessage(lineEvent.replyToken, echo);
