@@ -26,6 +26,7 @@ const dbServices = {
                 if(result.rows.length == 0){
                     return 0;
                 }else{
+                    client.end();
                     return 1;
                 }
             })
@@ -52,12 +53,22 @@ const dbServices = {
                     })
                     .catch(e => console.log(e))
                     .then(() => client.end());
+                }else{
+                    // create a echoing text message
+                    const echo = { type: 'text', text: "已經報名過了喔" };
+                    
+                    // use reply API
+                    return lineClient.replyMessage(replyToken, echo);
                 }
             })
             .catch(e => {
                 console.log(e);
                 client.end();
             });
+    },
+
+    CheckDrawingPlayers: function(){
+        client.connect();
     },
 
     Drawing: function(name, lineID, year, groupType){
