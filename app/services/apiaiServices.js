@@ -18,8 +18,13 @@ const apiaiServices = {
 
         request.on('response', function(response) {
             //console.log(response);
-            const echo = { type: 'text', text: response.result.fulfillment.speech };
-            return lineClient.replyMessage(lineEvent.replyToken, echo);
+            if(typeof response.result !== 'undefined' && response.result){
+                const echo = { type: 'text', text: response.result.fulfillment.speech };
+                return lineClient.replyMessage(lineEvent.replyToken, echo);
+            } else {
+                const echo = { type: 'text', text: "啊阿..." };
+                return lineClient.replyMessage(lineEvent.replyToken, echo);
+            }
         });
 
         request.on('error', function(error) {
