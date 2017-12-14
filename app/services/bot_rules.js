@@ -20,15 +20,7 @@ const botRules = {
     },
     SS: function(client, event){
         console.log(event);
-        
-        let text = dbServices.AttendDrawing("Test", event.source.userId, 2017, 0);
-        console.log(text);
-        text = text == "Done" ? "報名完成": "報名失敗";
-        // create a echoing text message
-        const echo = { type: 'text', text: text };
-      
-        // use reply API
-        return client.replyMessage(event.replyToken, echo);
+        return dbServices.AttendDrawing(client, replyToken, "Test", event.source.userId, 2017, 0);
     },
     NN: function(client, event){
         console.log(event);

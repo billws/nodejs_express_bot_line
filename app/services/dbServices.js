@@ -17,7 +17,7 @@ const dbServices = {
                 .catch(e => console.log(e))
                 .then(() => client.end());
     },
-    AttendDrawing: function(name, lineID, year, activeNO){
+    AttendDrawing: function(lineClient, replyToken, name, lineID, year, activeNO){
         client.connect();
         let queryParams = [lineID, year, activeNO];
         let insertParams = [lineID, name, year, activeNO];
@@ -42,7 +42,13 @@ const dbServices = {
                             .then((result) => {
                             })
                             .catch(e => console.log(e));*/
-                        return "Done";
+                            
+                            
+                        // create a echoing text message
+                        const echo = { type: 'text', text: "報名完成" };
+                          
+                        // use reply API
+                        return client.replyMessage(replyToken, echo);
                     })
                     .catch(e => console.log(e))
                     .then(() => client.end());
