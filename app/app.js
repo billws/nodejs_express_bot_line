@@ -29,7 +29,10 @@ const config = {
   
   // event handler
   function handleEvent(event) {
-    console.log(event);
+    let whoIS = JSON.stringify(event.source) + JSON.stringify(event.message);
+    
+    console.log(whoIS);
+
     if (event.type !== 'message' || event.message.type !== 'text') {
       // ignore non-text-message event
       return Promise.resolve(null);

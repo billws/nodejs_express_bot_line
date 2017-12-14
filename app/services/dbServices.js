@@ -21,7 +21,6 @@ const dbServices = {
         
         client.query('CREATE TABLE drawplayers (lineid VARCHAR(100) PRIMARY KEY, name VARCHAR(50), sendto VARCHAR(50), year INT, activeno SMALLINT);') 
                 .then((result) => {
-                    console.log(JSON.stringify(result));
                     const echo = { type: 'text', text: "Active Success！" };
                     return lineClient.replyMessage(lineevent.replyToken, echo);
                 })
@@ -92,14 +91,13 @@ const dbServices = {
             let own = {};
             let other = [];
             let hasSendTo = false;
-            console.log(result.rows.length);
             if(result.rows.length > 0) {
                 datas.length = result.rows.length;
                 datas.rows = result.rows;
                 for (let row of datas.rows) {
                     if(row.lineid === lineID){
                         own = row;
-                    }else{
+                    }else if(!row.sendto){
                         other.push(row);
                     }
                 }
@@ -117,7 +115,6 @@ const dbServices = {
             return datas;
         })
         .then((datas) => {
-            console.log(datas);
             if(datas.length > 0 && Object.keys(datas.own).length > 0 && !datas.hasSendTo && datas.other.length > 0){
                 let otherNumber = datas.other.length;
                 let randomNumber = Math.floor(Math.random() * (otherNumber - 1) + 1);
