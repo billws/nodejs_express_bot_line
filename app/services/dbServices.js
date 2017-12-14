@@ -13,9 +13,9 @@ const dbServices = {
         client.query('CREATE TABLE drawplayers (lineid VARCHAR(100) PRIMARY KEY, name VARCHAR(50), sendto VARCHAR(30), year INT, activeno SMALLINT);') 
                 .then((result) => {
                     console.log(JSON.stringify(result));
-                    client.end();
                 })
-                .catch(e => console.log(e));
+                .catch(e => console.log(e))
+                .then(() => client.end());
     },
     AttendDrawing: function(name, lineID, year, activeNO){
         client.connect();
@@ -30,9 +30,11 @@ const dbServices = {
                 }
             })
             .then((rowNumber) => {
+                console.log("22222222");
                 if(rowNumber == 0){
                     client.query('INSERT INTO drawplayers(lineid, name, year, activeno) values($1, $2, $3, $4)', insertParams)
                     .then((result) => {
+                        console.log("3333333333");
                         /*console.log(JSON.stringify(result));
                         client.query('SELECT * FROM drawplayers WHERE lineid = $1 AND year = $2 AND activeno = $3', queryParams)
                             .then((result) => {
@@ -44,7 +46,10 @@ const dbServices = {
                 }
             })
             .catch(e => console.log(e))
-            .then(() => client.end());
+            .then(() => {
+                console.log("ENDDDDDD");
+                client.end();
+            });
     },
 
     Drawing: function(name, lineID, year, groupType){
