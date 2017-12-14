@@ -22,13 +22,12 @@ const apiaiServices = {
                 const echo = { type: 'text', text: response.result.fulfillment.speech };
                 return lineClient.replyMessage(lineEvent.replyToken, echo);
             } else {
-                const echo = { type: 'text', text: "啊阿..." };
-                return lineClient.replyMessage(lineEvent.replyToken, echo);
+                return Promise.resolve(false);
             }
+            return Promise.resolve(false);
         });
 
         request.on('error', function(error) {
-            console.log(error);
             return Promise.resolve(false);
         });
 
