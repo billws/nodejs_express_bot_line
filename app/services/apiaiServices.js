@@ -14,7 +14,7 @@ const apiaiServices = {
             sessionId: lineEvent.source.userId
         };
 
-        let request = app.textRequest(event.message.text, options);
+        let request = app.textRequest(lineEvent.message.text, options);
 
         request.on('response', function(response) {
             console.log(response);
