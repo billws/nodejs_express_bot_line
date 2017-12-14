@@ -34,7 +34,7 @@ const config = {
       // ignore non-text-message event
       return Promise.resolve(null);
     }
-    let ruler = new botRules();
+    let ruler = new botRules.botRules();
     let condition = ruler.GetRule(event.message.text);
     if(condition !== "") {
       return ruler[condition](client, event);
