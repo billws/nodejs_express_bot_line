@@ -36,6 +36,7 @@ const dbServices = {
                     client.query('INSERT INTO drawplayers(lineid, name, year, activeno) values($1, $2, $3, $4)', insertParams)
                     .then((result) => {
                         console.log("3333333333");
+                        console.log(result);
                         /*console.log(JSON.stringify(result));
                         client.query('SELECT * FROM drawplayers WHERE lineid = $1 AND year = $2 AND activeno = $3', queryParams)
                             .then((result) => {
