@@ -83,13 +83,11 @@ const dbServices = {
     },
 
     Drawing: function(lineClient, lineEvent, lineID, year, activeNO){
-        console.log("111111111111");
         let client = this.InitDBClient();
         client.connect();
         let queryParams = [year, activeNO];
         client.query('SELECT * FROM drawplayers WHERE year = $1 AND activeno = $2', queryParams)
         .then((result) => {
-            console.log("222222222222222");
             let datas = {};
             let own = {};
             let other = [];
@@ -123,6 +121,7 @@ const dbServices = {
             if(datas.length > 0 && Object.keys(datas.own).length > 0 && !datas.hasSendTo && datas.other.length > 0){
                 let otherNumber = datas.other.length;
                 let randomNumber = Math.floor(Math.random() * (otherNumber - 1) + 1);
+                console.log(randomNumber);
                 let sendTo = datas.other[randomNumber].name;
                 let insertParams = [sendTo, lineID];
                 client.query('UPDATE drawplayers SET sendto=($1) WHERE lineid=($2)', insertParams)

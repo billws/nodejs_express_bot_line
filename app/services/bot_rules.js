@@ -20,6 +20,7 @@ const botRules = {
                 rule = "InitDB";
                 break;
             default:
+                rule = "Robot";
                 break;
         }
         return rule;
@@ -45,6 +46,14 @@ const botRules = {
         // create a echoing text message
         const echo = { type: 'text', text: 'init' };
                 
+        // use reply API
+        return client.replyMessage(event.replyToken, echo);
+    },
+    Robot: function(client, event){
+        // create a echoing text message
+        const echo = [{ type: 'text', text: '我很笨還沒學會怎麼回覆你！！' }, 
+            {type: 'sticker', packageId: 3, stickerId: 188}];
+        
         // use reply API
         return client.replyMessage(event.replyToken, echo);
     },
