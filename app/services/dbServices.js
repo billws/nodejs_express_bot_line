@@ -63,7 +63,8 @@ const dbServices = {
     CheckDrawingPlayers: function(){
         let client = this.InitDBClient();
         client.connect();
-        client.query('SELECT * FROM drawplayers WHERE year = $2 AND activeno = $3', queryParams)
+        let queryParams = [year, activeNO];
+        client.query('SELECT * FROM drawplayers WHERE year = $1 AND activeno = $2', queryParams)
             .then((result) => {
                 let allPlayer = "";
                 for (let row of result.rows) {
