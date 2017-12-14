@@ -17,14 +17,15 @@ const apiaiServices = {
         let request = app.textRequest(lineEvent.message.text, options);
 
         request.on('response', function(response) {
-            console.log(response);
+
             if(typeof response.result !== 'undefined' && response.result){
-                const echo = { type: 'text', text: response.result.fulfillment.speech };
+                const echo = { type: 'text', text: response.result.fulfillment.speech || "阿..." };
                 return lineClient.replyMessage(lineEvent.replyToken, echo);
             } else {
-                return Promise.resolve(false);
+                const echo = { type: 'text', text: '阿阿...' };
+                return lineClient.replyMessage(lineEvent.replyToken, echo);
             }
-            return Promise.resolve(false);
+            
         });
 
         request.on('error', function(error) {
